@@ -1,0 +1,30 @@
+{
+  "name": "hospital-backend",
+  "version": "1.0.0",
+  "description": "Hospital app backend",
+  "main": "app.js",
+  "scripts": {
+    "start": "nodemon app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/paulonteri/hospital-app-backend"
+  },
+  "author": "https://paulonteri.com",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/paulonteri/hospital-app-backend/issues"
+  },
+  "homepage": "https://github.com/paulonteri/hospital-app-backend#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4"
+  },
+  "nodemonConfig": {
+    "ext": "js",
+    "delay": "3"
+  }
+}
