@@ -1,6 +1,7 @@
 const express = require("express");
+
 var bodyParser = require("body-parser");
-// var upload = multer(); // for parsing multipart/form-data
+let formidable = require("express-formidable");
 
 const doctors = require("./models/doctors");
 const hospitals = require("./models/hospitals");
@@ -10,6 +11,8 @@ const port = 3000;
 
 const app = express();
 app.use(bodyParser.json());
+
+const formidableMiddleware = formidable({ encoding: "utf-8" });
 
 app.listen(port, () =>
   console.log(`Hospital Backend listening at http://localhost:${port}`)
@@ -37,10 +40,28 @@ app.get("/api/listspecialization/", function (req, res) {
   res.json(doctors.specialization);
 });
 
-app.post("/api/appointments/book/", function (req, res) {
-  req.accepts("json");
-  console.log("Hit");
-  console.log(req.body);
-  console.log(req.params);
-  res.end();
+app.post("/api/appointments/book/", formidableMiddleware, function (req, res) {
+  console.log(req.fields);
+  res.json({
+    appointments: [
+      {
+        result: "OK",
+        member_id: "32",
+        first_name: "Android",
+        last_name: "JSON",
+      },
+      {
+        result: "OK",
+        member_id: "32",
+        first_name: "Android",
+        last_name: "JSON",
+      },
+      {
+        result: "OK",
+        member_id: "32",
+        first_name: "Android",
+        last_name: "JSON",
+      },
+    ],
+  });
 });
