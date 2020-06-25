@@ -21,22 +21,22 @@ app.listen(port, () =>
 app.get("/", (req, res) => res.send("Hi There!"));
 
 app.get("/api/listdoctors", function (req, res) {
-  console.log("Hit");
+  console.log("/api/listdoctors");
   res.json(doctors.doctors);
 });
 
 app.get("/api/listcounties", function (req, res) {
-  console.log("Hit");
+  console.log("/api/listcounties");
   res.json(location.counties);
 });
 
 app.get("/api/listhospitals/", function (req, res) {
-  console.log("Hit");
+  console.log("/api/listhospitals/");
   res.json(hospitals.hospitals);
 });
 
 app.get("/api/listspecialization/", function (req, res) {
-  console.log("Hit");
+  console.log("/api/listspecialization/");
   res.json(doctors.specialization);
 });
 
@@ -63,5 +63,19 @@ app.post("/api/appointments/book/", formidableMiddleware, function (req, res) {
         last_name: "JSON",
       },
     ],
+  });
+});
+
+app.post("/api/auth/login", formidableMiddleware, function (req, res) {
+  console.log(req.fields);
+  res.json({
+    myPatient: {
+      email: "onteripaul@gmail.com",
+      firstName: "First Name",
+      middleName: "Middle Name",
+      lastName: "Last Name",
+      id: "343434",
+      idPassport: 23232323,
+    },
   });
 });
