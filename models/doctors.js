@@ -13,13 +13,13 @@ function doctors() {
   return { myDoctors: docs };
 }
 
-const specialization = {
-  mSpecialization: [
-    { id: 1, specializationName: "Surgery" },
-    { id: 2, specializationName: "Oncology" },
-    { id: 3, specializationName: "Dermatology" },
-  ],
-};
+const specializations = [
+  { id: 1, specializationName: "Surgery" },
+  { id: 2, specializationName: "Oncology" },
+  { id: 3, specializationName: "Dermatology" },
+];
+
+const specialization = { mSpecialization: specializations };
 
 module.exports = {
   doctors: doctors(),

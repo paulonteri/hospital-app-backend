@@ -6,6 +6,9 @@ let formidable = require("express-formidable");
 const doctors = require("./models/doctors");
 const hospitals = require("./models/hospitals");
 const location = require("./models/location");
+const appointments = require("./models/appointments");
+const auth = require("./models/auth");
+const modelsData = require("./models");
 
 const port = 3000;
 
@@ -42,40 +45,15 @@ app.get("/api/listspecialization/", function (req, res) {
 
 app.post("/api/appointments/book/", formidableMiddleware, function (req, res) {
   console.log(req.fields);
-  res.json({
-    appointments: [
-      {
-        result: "OK",
-        member_id: "32",
-        first_name: "Android",
-        last_name: "JSON",
-      },
-      {
-        result: "OK",
-        member_id: "32",
-        first_name: "Android",
-        last_name: "JSON",
-      },
-      {
-        result: "OK",
-        member_id: "32",
-        first_name: "Android",
-        last_name: "JSON",
-      },
-    ],
-  });
+  res.json(appointments.appointments);
 });
 
 app.post("/api/auth/login", formidableMiddleware, function (req, res) {
   console.log(req.fields);
-  res.json({
-    myPatient: {
-      email: "onteripaul@gmail.com",
-      firstName: "First Name",
-      middleName: "Middle Name",
-      lastName: "Last Name",
-      id: "343434",
-      idPassport: 23232323,
-    },
-  });
+  res.json(auth.user);
+});
+
+app.post("/api/data", formidableMiddleware, function (req, res) {
+  console.log(req.fields);
+  res.json(modelsData.data);
 });
