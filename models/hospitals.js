@@ -6,6 +6,22 @@ const hospitals = {
   ],
 };
 
+const labTestType = {
+  myLabTestType: [
+    { id: 1, testName: "Malaria Test" },
+    { id: 2, testName: "Cholera Test" },
+  ],
+};
+
+const visitType = {
+  myVisitType: [
+    { id: 1, name: "Testing" },
+    { id: 2, name: "Checkup" },
+  ],
+};
+
 module.exports = {
   hospitals: hospitals,
+  visitType: visitType,
+  labTestType: labTestType,
 };
