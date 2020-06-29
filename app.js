@@ -7,7 +7,7 @@ const doctors = require("./models/doctors");
 const hospitals = require("./models/hospitals");
 const location = require("./models/location");
 const appointments = require("./models/appointments");
-const auth = require("./models/auth");
+const user = require("./models/user");
 const modelsData = require("./models");
 
 const port = 3000;
@@ -50,7 +50,7 @@ app.post("/api/appointments/book/", formidableMiddleware, function (req, res) {
 
 app.post("/api/auth/login", formidableMiddleware, function (req, res) {
   console.log(req.fields);
-  res.json(auth.user);
+  res.json(user.user);
 });
 
 app.post("/api/data", formidableMiddleware, function (req, res) {

@@ -23,22 +23,25 @@ const appointments = {
 
 const patientAppointments = [
   {
-    appointmentDate: "28-08-2020",
+    appointmentDate: "28-08-2020 09:30:26.123+07:00",
     time: "8:00",
     subject: "Gumm Bleeding",
     status: "approved",
+    phone: "+254703130580",
   },
   {
-    appointmentDate: "20-02-2020",
+    appointmentDate: "20-02-2020 09:30:26.123+07:00",
     time: "8:00",
     subject: "Health Checkup",
     status: "declined",
+    phone: "+254703130580",
   },
   {
-    appointmentDate: "5-09-2020",
+    appointmentDate: "5-09-2020 09:30:26.123+07:00",
     time: "13:30",
-    subject: "Bllod Pressure",
+    subject: "Blood Pressure",
     status: "pending",
+    phone: "+254703130580",
   },
 ];
 
