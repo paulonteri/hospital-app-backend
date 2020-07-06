@@ -29,7 +29,6 @@
     "sqlite3": "^5.0.0"
   },
   "nodemonConfig": {
-    "ext": "js",
     "delay": "3"
   }
 }
