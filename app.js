@@ -1,7 +1,9 @@
 const express = require("express");
+const bodyParser = require("body-parser");
+const formidable = require("express-formidable");
 
-var bodyParser = require("body-parser");
-let formidable = require("express-formidable");
+// Databse
+db = require("./config/database");
 
 const doctors = require("./models/doctors");
 const hospitals = require("./models/hospitals");
@@ -11,12 +13,18 @@ const user = require("./models/user");
 const modelsData = require("./models");
 
 const port = 3000;
-
-const app = express();
-app.use(bodyParser.json());
-
 const formidableMiddleware = formidable({ encoding: "utf-8" });
+const app = express();
 
+db.authenticate()
+  .then(() =>
+    console.log(
+      "A connection to the database has been established successfully."
+    )
+  )
+  .catch((err) => console.error("Unable to connect to the database:", err));
+
+app.use(bodyParser.json());
 app.listen(port, () =>
   console.log(`Hospital Backend listening at http://localhost:${port}`)
 );

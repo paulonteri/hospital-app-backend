@@ -1,9 +1,9 @@
 const user = {
   myPatient: {
     email: "onteripaul@gmail.com",
-    firstName: "John",
+    firstName: "Paul",
     middleName: "Middle Name",
-    lastName: "Doe",
+    lastName: "Onteri",
     id: "343434",
     idPassport: 23232323,
   },
