@@ -1,24 +1,37 @@
-const user = require("./user");
-const drugs = require("./drugs");
-const doctors = require("./doctors");
-const location = require("./location");
-const hospitals = require("./hospitals");
-const appointments = require("./appointments");
-const clinicalHistory = require("./clinicalHistory");
+'use strict';
 
-const data = {
-  myDrug: drugs.drugs.myDrug,
-  myAllergy: user.allergies.myAllergy,
-  myDoctor: doctors.doctors.myDoctors,
-  myCounty: location.counties.mCounty,
-  myChronics: user.chronics.myChronics,
-  myHospital: hospitals.hospitals.mHospital,
-  myAppointments: appointments.patientAppointments,
-  mySpecialization: doctors.specialization.mSpecialization,
-  myPatientVisit: clinicalHistory.clinicalHistory.myPatientVisit,
-  myLabTestType: hospitals.labTestType.myLabTestType,
-  myLabTestResult: clinicalHistory.labTestResults.myLabTestResult,
-  myVisitType: hospitals.visitType.myVisitType,
-};
+const fs = require('fs');
+const path = require('path');
+const Sequelize = require('sequelize');
+const basename = path.basename(__filename);
+const env = process.env.NODE_ENV || 'development';
+const config = require(__dirname + '/../config/config.json')[env];
+const db = {};
 
-module.exports = { data: data };
+let sequelize;
+if (config.use_env_variable) {
+  sequelize = new Sequelize(process.env[config.use_env_variable], config);
+} else {
+  sequelize = new Sequelize(config.database, config.username, config.password, config);
+}
+
+fs
+  .readdirSync(__dirname)
+  .filter(file => {
+    return (file.indexOf('.') !== 0) && (file !== basename) && (file.slice(-3) === '.js');
+  })
+  .forEach(file => {
+    const model = require(path.join(__dirname, file))(sequelize, Sequelize.DataTypes);
+    db[model.name] = model;
+  });
+
+Object.keys(db).forEach(modelName => {
+  if (db[modelName].associate) {
+    db[modelName].associate(db);
+  }
+});
+
+db.sequelize = sequelize;
+db.Sequelize = Sequelize;
+
+module.exports = db;

@@ -26,6 +26,7 @@
   "devDependencies": {
     "faker": "^4.1.0",
     "nodemon": "^2.0.4",
+    "sequelize-cli": "^6.2.0",
     "sqlite3": "^5.0.0"
   },
   "nodemonConfig": {
