@@ -4,12 +4,12 @@ const formidable = require("express-formidable");
 
 const formidableMiddleware = formidable({ encoding: "utf-8" });
 
-const doctors = require("../models/doctors");
-const hospitals = require("../models/hospitals");
-const location = require("../models/location");
-const appointments = require("../models/appointments");
-const user = require("../models/user");
-const modelsData = require("../models");
+const doctors = require("../dummy_models/doctors");
+const hospitals = require("../dummy_models/hospitals");
+const location = require("../dummy_models/location");
+const appointments = require("../dummy_models/appointments");
+const user = require("../dummy_models/user");
+const modelsData = require("../dummy_models");
 
 router.get("/listdoctors", function (req, res) {
   console.log("/api/listdoctors");
