@@ -27,6 +27,7 @@ app.listen(port, () =>
   console.log(`Hospital Backend listening at http://localhost:${port}`)
 );
 
+//
 // ROUTES
 app.get("/", (req, res) => res.send("Hi There!"));
 // API routes

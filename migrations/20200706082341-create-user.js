@@ -15,12 +15,6 @@ module.exports = {
         allowNull: false,
       },
 
-      username: {
-        type: Sequelize.STRING,
-        unique: true,
-        allowNull: false,
-      },
-
       first_name: {
         type: Sequelize.STRING,
       },
@@ -32,15 +26,6 @@ module.exports = {
       password: {
         type: Sequelize.STRING,
         allowNull: false,
-      },
-
-      last_login: {
-        type: Sequelize.DATE,
-      },
-
-      status: {
-        type: Sequelize.BOOLEAN,
-        defaultValue: true,
       },
 
       createdAt: {

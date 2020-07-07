@@ -7,6 +7,7 @@ module.exports = function (passport, auth) {
   var Auth = auth;
 
   var LocalStrategy = require("passport-local").Strategy;
+
   // LOCAL SIGNUP
   passport.use(
     "local-signup",
@@ -36,9 +37,8 @@ module.exports = function (passport, auth) {
             var data = {
               email: email,
               password: userPassword,
-              firstname: req.body.firstname,
-              lastname: req.body.lastname,
-              username: req.body.username,
+              first_name: req.body.firstName,
+              last_name: req.body.lastName,
             };
 
             Auth.create(data).then(function (newUser, created) {

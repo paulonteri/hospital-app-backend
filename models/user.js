@@ -16,12 +16,6 @@ module.exports = function (sequelize, Sequelize) {
       notEmpty: true,
     },
 
-    username: {
-      type: Sequelize.TEXT,
-      unique: true,
-      allowNull: false,
-    },
-
     email: {
       type: Sequelize.STRING,
       unique: true,
@@ -34,15 +28,6 @@ module.exports = function (sequelize, Sequelize) {
     password: {
       type: Sequelize.STRING,
       allowNull: false,
-    },
-
-    last_login: {
-      type: Sequelize.DATE,
-    },
-
-    status: {
-      type: Sequelize.BOOLEAN,
-      defaultValue: true,
     },
 
     createdAt: {
