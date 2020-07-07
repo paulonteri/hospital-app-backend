@@ -16,7 +16,13 @@ const appointmentsService = require("../services/appointments");
 
 router.get("/listdoctors", function (req, res) {
   console.log("/api/listdoctors");
-  res.json(doctors.doctors);
+  doctorsService
+    .getDoctors()
+    .then((data) => res.json(data))
+    .catch((err) => {
+      console.log(err);
+      res.status(400).send("Bad Request");
+    });
 });
 
 router.post("/doctors/add", formidableMiddleware, function (req, res) {
@@ -33,7 +39,14 @@ router.post("/doctors/add", formidableMiddleware, function (req, res) {
     .createDoctor((firstName = data.firstName), (lastName = data.lastName))
     .then((obj) => {
       console.log(obj);
-      res.json(appointments.appointments);
+
+      doctorsService
+        .getDoctors()
+        .then((data) => res.json(data))
+        .catch((err) => {
+          console.log(err);
+          res.status(400).send("Bad Request");
+        });
     })
     .catch((err) => {
       console.log(err);

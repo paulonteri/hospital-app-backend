@@ -4,7 +4,6 @@ async function createDoctor(firstName, lastName) {
   if (!firstName) {
     throw "firstName is required";
   }
-
   if (!lastName) {
     throw "lastName is required";
   }
@@ -19,4 +18,9 @@ async function createDoctor(firstName, lastName) {
   return obj;
 }
 
-module.exports = { createDoctor: createDoctor };
+async function getDoctors() {
+  const doctors = await Doctor.findAll({ raw: true });
+  return doctors;
+}
+
+module.exports = { createDoctor: createDoctor, getDoctors: getDoctors };
