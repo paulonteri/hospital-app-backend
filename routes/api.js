@@ -11,8 +11,9 @@ const appointments = require("../dummy_models/appointments");
 const user = require("../dummy_models/user");
 const modelsData = require("../dummy_models");
 
-const doctorsService = require("../services/doctors");
-const appointmentsService = require("../services/appointments");
+const doctorsService = require("../services/doctor");
+const hospitalsService = require("../services/hospital");
+const appointmentsService = require("../services/appointment");
 
 router.get("/listdoctors", function (req, res) {
   console.log("/api/listdoctors");
@@ -61,7 +62,13 @@ router.get("/listcounties", function (req, res) {
 
 router.get("/listhospitals/", function (req, res) {
   console.log("/api/listhospitals/");
-  res.json(hospitals.hospitals);
+  hospitalsService
+    .getHospitals()
+    .then((data) => res.json(data))
+    .catch((err) => {
+      console.log(err);
+      res.status(400).send("Bad Request");
+    });
 });
 
 router.get("/listspecialization/", function (req, res) {
