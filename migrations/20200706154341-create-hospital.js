@@ -23,6 +23,15 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATE,
       },
+      addedBy: {
+        type: Sequelize.DataTypes.INTEGER,
+        references: {
+          model: "Users",
+          key: "id",
+        },
+        allowNull: false,
+        onDelete: "cascade",
+      },
     });
   },
   down: async (queryInterface, Sequelize) => {
