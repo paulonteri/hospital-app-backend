@@ -35,4 +35,32 @@ async function createAppointment(appt) {
   return obj;
 }
 
-module.exports = { createAppointment: createAppointment };
+// TODO:
+// async function showAppointmemnts(userId){
+async function getAppointments() {
+  const appointments = await Appointment.findAll({ raw: true });
+  const users = await User.findAll({ raw: true });
+  const doctors = await Doctor.findAll({ raw: true });
+  const hospitals = await Hospital.findAll({ raw: true });
+
+  const appointment_list = [];
+
+  for (var q of appointments) {
+    var patient = users.find((obj) => obj.id == q.patientId);
+    var doctor = doctors.find((obj) => obj.id == q.doctorId);
+    var hospital = hospitals.find((obj) => obj.id == q.hospitalId);
+    q.doctor = doctor;
+    q.patient = patient;
+    q.hospital = hospital;
+    delete q.patientId;
+    delete q.doctorId;
+    delete q.hospitalId;
+    appointment_list.push(q);
+  }
+  return appointment_list;
+}
+
+module.exports = {
+  createAppointment: createAppointment,
+  getAppointments: getAppointments,
+};

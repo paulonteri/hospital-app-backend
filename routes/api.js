@@ -100,7 +100,7 @@ router.post("/appointments/book/", formidableMiddleware, function (req, res) {
   }
 
   const appointmentDate = new Date();
-  const hospital = 2;
+  const hospital = 1;
   const patient = data.patient;
   const doctor = data.doctor;
   const reason = data.reason;
@@ -135,7 +135,28 @@ router.post("/appointments/book/", formidableMiddleware, function (req, res) {
     })
     .then((obj) => {
       console.log(obj);
-      return res.json(obj.dataValues);
+      appointmentsService
+        .getAppointments()
+        .then((data) => {
+          return res.json(data);
+        })
+        .catch((err) => {
+          console.log(err);
+          return res.status(400).send("Bad Request");
+        });
+    })
+    .catch((err) => {
+      console.log(err);
+      return res.status(400).send("Bad Request");
+    });
+});
+
+router.get("/appointments/list", function (req, res) {
+  console.log("/appointmants/list");
+  appointmentsService
+    .getAppointments()
+    .then((data) => {
+      return res.json(data);
     })
     .catch((err) => {
       console.log(err);
