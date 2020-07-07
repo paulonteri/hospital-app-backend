@@ -1,4 +1,3 @@
-//
 var bCrypt = require("bcrypt-nodejs");
 var passport = require("passport");
 
@@ -8,7 +7,6 @@ module.exports = function (passport, auth) {
   var Auth = auth;
 
   var LocalStrategy = require("passport-local").Strategy;
-
   // LOCAL SIGNUP
   passport.use(
     "local-signup",
@@ -40,6 +38,7 @@ module.exports = function (passport, auth) {
               password: userPassword,
               firstname: req.body.firstname,
               lastname: req.body.lastname,
+              username: req.body.username,
             };
 
             Auth.create(data).then(function (newUser, created) {
@@ -110,7 +109,7 @@ module.exports = function (passport, auth) {
     )
   );
 
-  // serialize
+  //serialize
   passport.serializeUser(function (auth, done) {
     done(null, auth.id);
   });
