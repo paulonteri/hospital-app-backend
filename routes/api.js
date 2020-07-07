@@ -16,6 +16,28 @@ router.get("/listdoctors", function (req, res) {
   res.json(doctors.doctors);
 });
 
+router.post("/doctors/add", formidableMiddleware, function (req, res) {
+  const data = req.fields;
+  if (!data.firstName) {
+    res.status(422).send("First name is required!");
+  }
+
+  if (!data.lastName) {
+    res.status(422).send("Last Name is required!");
+  }
+
+  doctorsService
+    .createDoctor((firstName = data.firstName), (lastName = data.lastName))
+    .then((obj) => {
+      console.log(obj);
+      res.json(appointments.appointments);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(400).send("Bad Request");
+    });
+});
+
 router.get("/listcounties", function (req, res) {
   console.log("/api/listcounties");
   res.json(location.counties);
@@ -31,9 +53,28 @@ router.get("/listspecialization/", function (req, res) {
   res.json(doctors.specialization);
 });
 
+doctorsService = require("../services/doctors");
+
 router.post("/appointments/book/", formidableMiddleware, function (req, res) {
-  console.log(req.fields);
-  res.json(appointments.appointments);
+  const data = req.fields;
+  if (!data.firstName) {
+    res.status(422).send("First name is required!");
+  }
+
+  if (!data.lastName) {
+    res.status(422).send("Last Name is required!");
+  }
+
+  doctorsService
+    .createDoctor((firstName = data.firstName), (lastName = data.lastName))
+    .then((obj) => {
+      console.log(obj);
+      res.json(appointments.appointments);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(400).send("Bad Request");
+    });
 });
 
 router.post("/auth/login", formidableMiddleware, function (req, res) {
