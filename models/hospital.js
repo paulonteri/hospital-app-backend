@@ -10,8 +10,8 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // Will add a UserId attribute to Hospital to hold the primary key value id 'as' is not specified
-      // models.Hospital.belongsTo(models.Users, {
-      // this.belongsTo(models.Users, {
+      // models.Hospital.belongsTo(models.User, {
+      // this.belongsTo(models.User, {
       //   onDelete: "CASCADE",
       //   as: "addedBy",
       //   foreignKey: {
@@ -47,7 +47,7 @@ module.exports = (sequelize, DataTypes) => {
       addedBy: {
         type: DataTypes.INTEGER,
         references: {
-          model: "Users",
+          model: "User",
           key: "id",
         },
         allowNull: false,

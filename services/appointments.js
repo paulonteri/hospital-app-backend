@@ -1,4 +1,4 @@
-const { Appointment, Users, Hospital, Doctor } = require("../models/index");
+const { Appointment, User, Hospital, Doctor } = require("../models/index");
 
 async function createAppointment(appt) {
   const subject = appt.subject;
@@ -8,7 +8,7 @@ async function createAppointment(appt) {
   const hospitalId = appt.hospitalId;
   const doctorId = appt.hospitalId;
 
-  const patient = await Users.findByPk(patientId);
+  const patient = await User.findByPk(patientId);
   if (patient === null) {
     throw "Invalid Patient";
   }
