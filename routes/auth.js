@@ -27,11 +27,18 @@ module.exports = function (app, passport) {
   // Login
   app.post(
     "/auth/signin",
-    // formidableMiddleware,
-    passport.authenticate("local-signin"),
-    function (req, res) {
+    passport.authenticate("local-signin", { failWithError: true }),
+    function (req, res, next) {
       console.log(req.user);
-      res.send(200);
+      return res.json({
+        id: req.user.id,
+        email: req.user.email,
+        firstName: req.user.first_name,
+        lastName: req.user.last_name,
+      });
+    },
+    function (err, req, res, next) {
+      return res.json(err);
     }
   );
 
