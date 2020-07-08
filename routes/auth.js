@@ -11,22 +11,29 @@ module.exports = function (app, passport) {
     });
   });
 
-  app.post("/auth/signup", passport.authenticate("local-signup"), function (
-    req,
-    res
-  ) {
-    console.log("/auth//////////////////////");
-    console.log(req.user);
-    res.send(200);
-  });
+  // Register
+  app.post(
+    "/auth/signup",
+    passport.authenticate("local-signup", { failWithError: true }),
+    function (req, res, next) {
+      console.log(req.user);
+      return res.json({ id: req.user.id });
+    },
+    function (err, req, res, next) {
+      return res.json(err);
+    }
+  );
 
-  app.post("/auth/signin", passport.authenticate("local-signin"), function (
-    req,
-    res
-  ) {
-    console.log(req.user);
-    res.send(200);
-  });
+  // Login
+  app.post(
+    "/auth/signin",
+    // formidableMiddleware,
+    passport.authenticate("local-signin"),
+    function (req, res) {
+      console.log(req.user);
+      res.send(200);
+    }
+  );
 
   function isLoggedIn(req, res, next) {
     if (req.isAuthenticated()) return next();

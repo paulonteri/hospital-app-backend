@@ -26,31 +26,39 @@ module.exports = function (passport, auth) {
           where: {
             email: email,
           },
-        }).then(function (user) {
-          //console.log(user);
-          if (user) {
-            return done(null, false, {
-              message: "That email is already taken",
-            });
-          } else {
-            var userPassword = generateHash(password);
-            var data = {
-              email: email,
-              password: userPassword,
-              first_name: req.body.firstName,
-              last_name: req.body.lastName,
-            };
+        })
+          .then(function (user) {
+            //console.log(user);
+            if (user) {
+              return done(null, false, {
+                message: "That email is already taken",
+              });
+            } else {
+              var userPassword = generateHash(password);
+              var data = {
+                email: email,
+                password: userPassword,
+                first_name: req.body.firstName,
+                last_name: req.body.lastName,
+              };
 
-            Auth.create(data).then(function (newUser, created) {
-              if (!newUser) {
-                return done(null, false);
-              }
-              if (newUser) {
-                return done(null, newUser);
-              }
+              Auth.create(data).then(function (newUser, created) {
+                if (!newUser) {
+                  return done(null, false);
+                }
+                if (newUser) {
+                  return done(null, newUser);
+                }
+              });
+            }
+          })
+          .catch(function (err) {
+            console.log("Error:", err);
+
+            return done(null, false, {
+              message: "Something went wrong with your Sign up",
             });
-          }
-        });
+          });
       }
     )
   );
