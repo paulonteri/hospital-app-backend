@@ -28,10 +28,28 @@ module.exports = (sequelize, DataTypes) => {
         },
       });
 
-      // patientId
+      // doctorId
       this.belongsTo(models.Doctor, {
         onDelete: "CASCADE",
         as: "doctor",
+        foreignKey: {
+          allowNull: false,
+        },
+      });
+
+      // specializationId
+      this.belongsTo(models.Specialization, {
+        onDelete: "CASCADE",
+        as: "specialization",
+        foreignKey: {
+          allowNull: false,
+        },
+      });
+
+      // countyId
+      this.belongsTo(models.County, {
+        onDelete: "CASCADE",
+        as: "county",
         foreignKey: {
           allowNull: false,
         },
@@ -59,6 +77,12 @@ module.exports = (sequelize, DataTypes) => {
       appointment_date: {
         type: DataTypes.DATE,
         allowNull: false,
+      },
+
+      status: {
+        type: DataTypes.ENUM("approved", "declined", "pending"),
+        allowNull: false,
+        defaultValue: "approved",
       },
 
       createdAt: {

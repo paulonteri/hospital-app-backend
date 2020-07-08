@@ -1,4 +1,11 @@
-const { Appointment, User, Hospital, Doctor } = require("../models/index");
+const {
+  Appointment,
+  User,
+  Hospital,
+  Doctor,
+  County,
+  Specialization,
+} = require("../models/index");
 
 async function createAppointment(appt) {
   const subject = appt.subject;
@@ -7,6 +14,8 @@ async function createAppointment(appt) {
   const patientId = appt.patientId;
   const hospitalId = appt.hospitalId;
   const doctorId = appt.hospitalId;
+  const countyId = appt.countyId;
+  const specializationId = appt.specializationId;
 
   const patient = await User.findByPk(patientId);
   if (patient === null) {
@@ -20,6 +29,14 @@ async function createAppointment(appt) {
   if (doctor === null) {
     throw "Invalid Doctor";
   }
+  const county = await County.findByPk(countyId);
+  if (county === null) {
+    throw "Invalid County";
+  }
+  const specialization = await County.findByPk(specializationId);
+  if (specialization === null) {
+    throw "Invalid Specialization";
+  }
 
   const obj = await Appointment.create({
     subject: subject,
@@ -28,6 +45,9 @@ async function createAppointment(appt) {
     patientId: patientId,
     hospitalId: hospitalId,
     doctorId: doctorId,
+    countyId: countyId,
+    specializationId: specializationId,
+    status: "pending",
     createdAt: new Date(),
     updatedAt: new Date(),
   });
@@ -38,10 +58,20 @@ async function createAppointment(appt) {
 // TODO:
 // async function showAppointmemnts(userId){
 async function getAppointments() {
-  const appointments = await Appointment.findAll({ raw: true });
-  const users = await User.findAll({ raw: true });
+  const appointments = await Appointment.findAll({
+    raw: true,
+  });
+  const users = await User.findAll({
+    raw: true,
+    attributes: ["id", "first_name"],
+  });
   const doctors = await Doctor.findAll({ raw: true });
-  const hospitals = await Hospital.findAll({ raw: true });
+  const hospitals = await Hospital.findAll({
+    raw: true,
+    attributes: ["id", "name"],
+  });
+  const counties = await County.findAll({ raw: true });
+  const specializations = await Specialization.findAll({ raw: true });
 
   const appointment_list = [];
 
@@ -49,12 +79,22 @@ async function getAppointments() {
     var patient = users.find((obj) => obj.id == q.patientId);
     var doctor = doctors.find((obj) => obj.id == q.doctorId);
     var hospital = hospitals.find((obj) => obj.id == q.hospitalId);
+    var county = counties.find((obj) => obj.id == q.countyId);
+    var specialization = specializations.find(
+      (obj) => obj.id == q.specializationId
+    );
     q.doctor = doctor;
     q.patient = patient;
     q.hospital = hospital;
+    q.county = county;
+    q.specialization = specialization;
+    q.phone = "+254703130580";
+    q.time = q.appointment_date;
     delete q.patientId;
     delete q.doctorId;
     delete q.hospitalId;
+    delete q.specializationId;
+    delete q.countyId;
     appointment_list.push(q);
   }
   return appointment_list;

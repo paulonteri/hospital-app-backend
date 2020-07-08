@@ -34,6 +34,12 @@ module.exports = {
         type: Sequelize.DATE,
       },
 
+      status: {
+        type: Sequelize.ENUM("approved", "declined", "pending"),
+        allowNull: false,
+        defaultValue: "approved",
+      },
+
       // Foreign Keys
       patientId: {
         type: Sequelize.DataTypes.INTEGER,
@@ -59,6 +65,26 @@ module.exports = {
         type: Sequelize.DataTypes.INTEGER,
         references: {
           model: "Doctors",
+          key: "id",
+        },
+        allowNull: false,
+        onDelete: "cascade",
+      },
+
+      countyId: {
+        type: Sequelize.DataTypes.INTEGER,
+        references: {
+          model: "Counties",
+          key: "id",
+        },
+        allowNull: false,
+        onDelete: "cascade",
+      },
+
+      specializationId: {
+        type: Sequelize.DataTypes.INTEGER,
+        references: {
+          model: "Specializations",
           key: "id",
         },
         allowNull: false,

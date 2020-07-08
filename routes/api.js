@@ -82,17 +82,9 @@ router.post("/appointments/book/", formidableMiddleware, function (req, res) {
   if (!data.appointmentDate) {
     return res.status(422).send("Appointment date is required!");
   }
-  if (!data.visitType) {
-    return res.status(422).send("Visit Type is required!");
-  }
-  if (!data.time) {
-    return res.status(422).send("Time is required!");
-  }
+
   if (!data.hospital) {
     return res.status(422).send("Hospital is required!");
-  }
-  if (!data.action) {
-    return res.status(422).send("Action is required!");
   }
   if (!data.county) {
     return res.status(422).send("County is required!");
@@ -100,14 +92,8 @@ router.post("/appointments/book/", formidableMiddleware, function (req, res) {
   if (!data.patient) {
     return res.status(422).send("Patient is required!");
   }
-  if (!data.Test) {
-    return res.status(422).send("Test is required!");
-  }
   if (!data.specialization) {
     return res.status(422).send("Specialization is required!");
-  }
-  if (!data.status) {
-    return res.status(422).send("Status is required!");
   }
   if (!data.doctor) {
     return res.status(422).send("Doctor is required!");
@@ -118,20 +104,27 @@ router.post("/appointments/book/", formidableMiddleware, function (req, res) {
   if (!data.subject) {
     return res.status(422).send("Subject is required!");
   }
+  // if (!data.visitType) {
+  //   return res.status(422).send("Visit Type is required!");
+  // }
+  // if (!data.Test) {
+  //   return res.status(422).send("Test is required!");
+  // }
+  // if (!data.action) {
+  //   return res.status(422).send("Action is required!");
+  // }
 
   const appointmentDate = new Date();
-  const hospital = 1;
+  const hospital = data.hospital;
   const patient = data.patient;
   const doctor = data.doctor;
   const reason = data.reason;
   const subject = data.subject;
-  const action = data.action;
-  const county = data.county;
-  const visitType = data.visitType;
-  const time = data.time;
-  const Test = data.Test;
   const specialization = data.specialization;
-  const status = data.status;
+  const county = data.county;
+  // const action = data.action;
+  // const visitType = data.visitType;
+  // const Test = data.Test;
 
   appointmentsService
     .createAppointment({
@@ -139,19 +132,13 @@ router.post("/appointments/book/", formidableMiddleware, function (req, res) {
       hospitalId: hospital,
       patientId: patient,
       doctorId: doctor,
-      // hospitalId: 1,
-      // patientId: 1,
-      // doctorId: 1,
       reason: reason,
       subject: subject,
+      countyId: county,
+      specializationId: specialization,
       //
       // Test:Test,
-      // specialization:specialization,
       // visitType:visitType,
-      // time:time,
-      // action:action,
-      // county:county,
-      // status:status
     })
     .then((obj) => {
       console.log(obj);
@@ -171,7 +158,7 @@ router.post("/appointments/book/", formidableMiddleware, function (req, res) {
     });
 });
 
-router.get("/appointments/list", function (req, res) {
+router.post("/appointments/list", function (req, res) {
   console.log("/appointmants/list");
   appointmentsService
     .getAppointments()
