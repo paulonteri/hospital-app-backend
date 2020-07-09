@@ -87,28 +87,44 @@ router.post("/appointments/book/", formidableMiddleware, function (req, res) {
   const data = req.fields;
 
   if (!data.appointmentDate) {
+    console.log(data);
+    console.log("Appoitment Date required!");
     return res.status(422).send("Appointment date is required!");
   }
 
   if (!data.hospital) {
+    console.log("Hospital required!");
+    console.log(data);
     return res.status(422).send("Hospital is required!");
   }
   if (!data.county) {
+    console.log("County required!");
+    console.log(data);
     return res.status(422).send("County is required!");
   }
   if (!data.patient) {
+    console.log("Patient required!");
+    console.log(data);
     return res.status(422).send("Patient is required!");
   }
   if (!data.specialization) {
+    console.log("Specialization required!");
+    console.log(data);
     return res.status(422).send("Specialization is required!");
   }
   if (!data.doctor) {
+    console.log("Doctor required!");
+    console.log(data);
     return res.status(422).send("Doctor is required!");
   }
   if (!data.reason) {
+    console.log("Reason required!");
+    console.log(data);
     return res.status(422).send("Reason is required!");
   }
   if (!data.subject) {
+    console.log("Subject required!");
+    console.log(data);
     return res.status(422).send("Subject is required!");
   }
   // if (!data.visitType) {
@@ -147,7 +163,8 @@ router.post("/appointments/book/", formidableMiddleware, function (req, res) {
       // Test:Test,
       // visitType:visitType,
     })
-    .then((obj) => {
+    .then(() => {
+      console.log("Appoitment Added");
       appointmentsService
         .getAppointments()
         .then(() => {
