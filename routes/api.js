@@ -12,9 +12,10 @@ const user = require("../dummy_models/user");
 const modelsData = require("../dummy_models");
 
 const doctorsService = require("../services/doctor");
+const countiesService = require("../services/county");
 const hospitalsService = require("../services/hospital");
 const appointmentsService = require("../services/appointment");
-const countiesService = require("../services/county");
+const specializationsService = require("../services/specialization");
 
 router.get("/doctors/list", function (req, res) {
   console.log("/api/listdoctors");
@@ -80,9 +81,15 @@ router.get("/hospitals/list", function (req, res) {
     });
 });
 
-router.get("/listspecialization/", function (req, res) {
+router.get("/specializations/list", function (req, res) {
   console.log("/api/listspecialization/");
-  res.json(doctors.specialization);
+  specializationsService
+    .getSpecializations()
+    .then((data) => res.json(data))
+    .catch((err) => {
+      console.log(err);
+      res.status(400).send("Bad Request");
+    });
 });
 
 router.post("/appointments/book/", formidableMiddleware, function (req, res) {
