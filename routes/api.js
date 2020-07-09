@@ -40,9 +40,7 @@ router.post("/doctors/add", formidableMiddleware, function (req, res) {
 
   doctorsService
     .createDoctor((firstName = data.firstName), (lastName = data.lastName))
-    .then((obj) => {
-      console.log(obj);
-
+    .then(() => {
       doctorsService
         .getDoctors()
         .then((data) => res.json(data))
@@ -130,7 +128,7 @@ router.post("/appointments/book/", formidableMiddleware, function (req, res) {
   //   return res.status(422).send("Action is required!");
   // }
 
-  const appointmentDate = new Date();
+  const appointmentDate = data.appointmentDate;
   const hospital = data.hospital;
   const patient = data.patient;
   const doctor = data.doctor;
@@ -157,11 +155,18 @@ router.post("/appointments/book/", formidableMiddleware, function (req, res) {
       // visitType:visitType,
     })
     .then((obj) => {
-      console.log(obj);
       appointmentsService
         .getAppointments()
-        .then((data) => {
-          return res.json(data);
+        .then(() => {
+          appointmentsService
+            .getAppointments()
+            .then((data) => {
+              return res.json(data);
+            })
+            .catch((err) => {
+              console.log(err);
+              return res.status(400).send("Bad Request");
+            });
         })
         .catch((err) => {
           console.log(err);

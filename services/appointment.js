@@ -13,7 +13,7 @@ async function createAppointment(appt) {
   const appointment_date = appt.appointment_date;
   const patientId = appt.patientId;
   const hospitalId = appt.hospitalId;
-  const doctorId = appt.hospitalId;
+  const doctorId = appt.doctorId;
   const countyId = appt.countyId;
   const specializationId = appt.specializationId;
 
@@ -65,13 +65,22 @@ async function getAppointments() {
     raw: true,
     attributes: ["id", "first_name"],
   });
-  const doctors = await Doctor.findAll({ raw: true });
+  const doctors = await Doctor.findAll({
+    raw: true,
+    attributes: ["id", "firstName", "lastName"],
+  });
   const hospitals = await Hospital.findAll({
     raw: true,
     attributes: ["id", "name"],
   });
-  const counties = await County.findAll({ raw: true });
-  const specializations = await Specialization.findAll({ raw: true });
+  const counties = await County.findAll({
+    raw: true,
+    attributes: ["id", "name"],
+  });
+  const specializations = await Specialization.findAll({
+    raw: true,
+    attributes: ["id", "name"],
+  });
 
   const appointment_list = [];
 
@@ -83,13 +92,14 @@ async function getAppointments() {
     var specialization = specializations.find(
       (obj) => obj.id == q.specializationId
     );
+
     q.doctor = doctor;
     q.patient = patient;
     q.hospital = hospital;
     q.county = county;
     q.specialization = specialization;
     q.phone = "+254703130580";
-    q.time = q.appointment_date;
+    q.time = q["appointment_date"].substr(11, 2) + ":00";
     delete q.patientId;
     delete q.doctorId;
     delete q.hospitalId;
