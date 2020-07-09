@@ -1,5 +1,6 @@
 var bCrypt = require("bcrypt-nodejs");
 var passport = require("passport");
+const { User } = require("../../models/index");
 
 // function to be called while there is a new sign/signup
 // We are using passport local signin/signup strategies for our app
@@ -124,12 +125,14 @@ module.exports = function (passport, auth) {
 
   // deserialize user
   passport.deserializeUser(function (id, done) {
-    Auth.findById(id).then(function (user) {
-      if (user) {
-        done(null, user.get());
-      } else {
-        done(user.errors, null);
-      }
-    });
+    User.findById(id)
+      .then(function (user) {
+        if (user) {
+          done(null, user.get());
+        } else {
+          done(user.errors, null);
+        }
+      })
+      .catch((err) => console.log(err));
   });
 };
