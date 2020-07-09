@@ -4,13 +4,6 @@ const formidable = require("express-formidable");
 
 const formidableMiddleware = formidable({ encoding: "utf-8" });
 
-const doctors = require("../dummy_models/doctors");
-const hospitals = require("../dummy_models/hospitals");
-const location = require("../dummy_models/location");
-const appointments = require("../dummy_models/appointments");
-const user = require("../dummy_models/user");
-const modelsData = require("../dummy_models");
-
 const doctorsService = require("../services/doctor");
 const countiesService = require("../services/county");
 const hospitalsService = require("../services/hospital");
@@ -192,13 +185,10 @@ router.post("/appointments/list", function (req, res) {
     });
 });
 
-router.post("/auth/login", formidableMiddleware, function (req, res) {
-  console.log(req.fields);
-  res.json(user.user);
-});
-
 router.post("/data", formidableMiddleware, function (req, res) {
+  console.log("Dummy Data API");
   console.log(req.fields);
+  const modelsData = require("../dummy_models");
   res.json(modelsData.data);
 });
 
