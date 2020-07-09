@@ -14,8 +14,9 @@ const modelsData = require("../dummy_models");
 const doctorsService = require("../services/doctor");
 const hospitalsService = require("../services/hospital");
 const appointmentsService = require("../services/appointment");
+const countiesService = require("../services/county");
 
-router.get("/listdoctors", function (req, res) {
+router.get("/doctors/list", function (req, res) {
   console.log("/api/listdoctors");
   doctorsService
     .getDoctors()
@@ -55,12 +56,20 @@ router.post("/doctors/add", formidableMiddleware, function (req, res) {
     });
 });
 
-router.get("/listcounties", function (req, res) {
+router.get("/counties/list", function (req, res) {
   console.log("/api/listcounties");
-  res.json(location.counties);
+  countiesService
+    .getCounties()
+    .then((data) => {
+      res.json(data);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(400).send("Bad Request");
+    });
 });
 
-router.get("/listhospitals/", function (req, res) {
+router.get("/hospitals/list", function (req, res) {
   console.log("/api/listhospitals/");
   hospitalsService
     .getHospitals()
