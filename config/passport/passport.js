@@ -55,7 +55,6 @@ module.exports = function (passport, auth) {
           })
           .catch(function (err) {
             console.log("Error:", err);
-
             return done(null, false, {
               message: "Something went wrong with your Sign up",
             });
@@ -70,11 +69,8 @@ module.exports = function (passport, auth) {
     new LocalStrategy(
       {
         // by default, local strategy uses username and password, we will override with email
-
         usernameField: "email",
-
         passwordField: "password",
-
         passReqToCallback: true, // allows us to pass back the entire request to the callback
       },
 
@@ -125,7 +121,11 @@ module.exports = function (passport, auth) {
 
   // deserialize user
   passport.deserializeUser(function (id, done) {
-    User.findById(id)
+    Auth.findOne({
+      where: {
+        id: id,
+      },
+    })
       .then(function (user) {
         if (user) {
           done(null, user.get());
@@ -133,6 +133,8 @@ module.exports = function (passport, auth) {
           done(user.errors, null);
         }
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        done(user.errors, null);
+      });
   });
 };
