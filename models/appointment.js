@@ -74,6 +74,10 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
       },
 
+      feedback: {
+        type: DataTypes.TEXT,
+      },
+
       appointment_date: {
         type: DataTypes.DATE,
         allowNull: false,

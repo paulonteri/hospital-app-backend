@@ -19,6 +19,10 @@ module.exports = {
         type: Sequelize.TEXT,
       },
 
+      feedback: {
+        type: Sequelize.TEXT,
+      },
+
       appointment_date: {
         type: Sequelize.DATE,
         allowNull: false,
