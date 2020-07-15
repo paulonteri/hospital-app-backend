@@ -1,6 +1,6 @@
 "use strict";
 
-hspconst { User, County } = require("../models/index");
+const { User, County } = require("../models/index");
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
