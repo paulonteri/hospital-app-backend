@@ -29,7 +29,17 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   DoctorHospital.init(
-    {},
+    {
+      createdAt: {
+        allowNull: false,
+        type: DataTypes.DATE,
+      },
+
+      updatedAt: {
+        allowNull: false,
+        type: DataTypes.DATE,
+      },
+    },
     {
       sequelize,
       modelName: "DoctorHospital",

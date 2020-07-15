@@ -8,9 +8,7 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      name: {
-        type: Sequelize.STRING,
-      },
+
       doctorId: {
         type: Sequelize.DataTypes.INTEGER,
         references: {
@@ -20,6 +18,7 @@ module.exports = {
         allowNull: false,
         onDelete: "cascade",
       },
+
       hospitalId: {
         type: Sequelize.DataTypes.INTEGER,
         references: {
@@ -29,7 +28,13 @@ module.exports = {
         allowNull: false,
         onDelete: "cascade",
       },
+
       updatedAt: {
+        allowNull: false,
+        type: Sequelize.DATE,
+      },
+
+      createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
       },
