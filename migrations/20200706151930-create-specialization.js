@@ -9,6 +9,16 @@ module.exports = {
         type: Sequelize.INTEGER,
       },
 
+      specializationGroupId: {
+        type: Sequelize.DataTypes.INTEGER,
+        references: {
+          model: "SpecializationGroups",
+          key: "id",
+        },
+        allowNull: false,
+        onDelete: "cascade",
+      },
+
       name: {
         type: Sequelize.STRING,
         unique: true,
@@ -23,16 +33,6 @@ module.exports = {
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE,
-      },
-
-      specializationGroupId: {
-        type: Sequelize.DataTypes.INTEGER,
-        references: {
-          model: "SpecializationGroups",
-          key: "id",
-        },
-        allowNull: false,
-        onDelete: "cascade",
       },
     });
   },
