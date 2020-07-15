@@ -9,6 +9,15 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+
+      // specializationGroupId
+      this.belongsTo(models.SpecializationGroup, {
+        onDelete: "CASCADE",
+        as: "specializationGroup",
+        foreignKey: {
+          allowNull: false,
+        },
+      });
     }
   }
   Specialization.init(

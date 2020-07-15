@@ -8,18 +8,31 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
+
       name: {
         type: Sequelize.STRING,
         unique: true,
         allowNull: false,
       },
+
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
       },
+
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE,
+      },
+
+      specializationGroupId: {
+        type: Sequelize.DataTypes.INTEGER,
+        references: {
+          model: "SpecializationGroups",
+          key: "id",
+        },
+        allowNull: false,
+        onDelete: "cascade",
       },
     });
   },
