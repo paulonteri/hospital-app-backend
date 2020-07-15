@@ -8,21 +8,36 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
+
       name: {
         type: Sequelize.STRING,
         allowNull: false,
       },
+
+      countyId: {
+        type: Sequelize.DataTypes.INTEGER,
+        references: {
+          model: "Counties",
+          key: "id",
+        },
+        allowNull: false,
+        onDelete: "cascade",
+      },
+
       description: {
         type: Sequelize.TEXT,
       },
+
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
       },
+
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE,
       },
+
       addedBy: {
         type: Sequelize.DataTypes.INTEGER,
         references: {

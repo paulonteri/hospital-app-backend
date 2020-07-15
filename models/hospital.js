@@ -18,6 +18,15 @@ module.exports = (sequelize, DataTypes) => {
       //     allowNull: false,
       //   },
       // });
+
+      // countyId
+      this.belongsTo(models.County, {
+        onDelete: "CASCADE",
+        as: "county",
+        foreignKey: {
+          allowNull: false,
+        },
+      });
     }
   }
   Hospital.init(

@@ -1,27 +1,32 @@
 "use strict";
 
-const { User } = require("../models/index");
+hspconst { User, County } = require("../models/index");
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     const users = await User.findAll({ raw: true });
+    const counties = await County.findAll({ raw: true });
 
     return await queryInterface.bulkInsert("Hospitals", [
       {
         name: "Nairobi Hospital",
         addedBy: users[0].id,
+        countyId: counties[0].id,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
         name: "Galaxy Medicare",
         addedBy: users[1].id,
+        countyId: counties[1].id,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
         name: "Kenyatta National Hospital",
+        description: "National hospital",
         addedBy: users[2].id,
+        countyId: counties[2].id,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
