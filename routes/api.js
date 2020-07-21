@@ -11,7 +11,6 @@ const appointmentsService = require("../services/appointment");
 const specializationsService = require("../services/specialization");
 
 router.post("/doctors/list", function (req, res) {
-  console.log(">>>>>>>>>> listdoctors");
   var data = req.body;
   if (data && data.specialization && data.county) {
     console.log(data.specialization);
@@ -24,7 +23,7 @@ router.post("/doctors/list", function (req, res) {
         res.status(400).send("Bad Request");
       });
   } else {
-    res.status(400).send({ Error: "Specialization Required" });
+    res.status(400).send({ Error: "Specialization & County Required" });
   }
 });
 
@@ -56,7 +55,6 @@ router.post("/doctors/add", formidableMiddleware, function (req, res) {
 });
 
 router.post("/counties/list", function (req, res) {
-  console.log(">>>>>>>>>> listcounties");
   var data = req.body;
   if (data && data.specialization) {
     console.log(data.specialization);
@@ -75,7 +73,6 @@ router.post("/counties/list", function (req, res) {
 });
 
 router.post("/hospitals/list", function (req, res) {
-  console.log(">>>>>>>>>> listhospitals/");
   var data = req.body;
   if (data && data.specialization && data.county) {
     console.log(data.specialization);
@@ -88,15 +85,34 @@ router.post("/hospitals/list", function (req, res) {
         res.status(400).send("Bad Request");
       });
   } else {
-    res.status(400).send({ Error: "Specialization Required" });
+    res.status(400).send({ Error: "Specialization & County Required" });
   }
 });
 
-router.get("/specializations/list", function (req, res) {
-  console.log(">>>>>>>>>> listspecialization/");
+router.post("/specializations/sub/list", function (req, res) {
+  var data = req.body;
+  if (data && data.specialization) {
+    console.log(data.specialization);
+    specializationsService
+      .getSpecializations()
+      .then((data) => {
+        res.json({ data: data });
+      })
+      .catch((err) => {
+        console.log(err);
+        res.status(400).send("Bad Request");
+      });
+  } else {
+    res.status(400).send({ Error: "Specialization Group Required" });
+  }
+});
+
+router.get("/specializations/groups/list", function (req, res) {
   specializationsService
     .getSpecializations()
-    .then((data) => res.json(data))
+    .then((data) => {
+      res.json(data);
+    })
     .catch((err) => {
       console.log(err);
       res.status(400).send("Bad Request");
@@ -105,7 +121,6 @@ router.get("/specializations/list", function (req, res) {
 
 router.post("/appointments/book/", formidableMiddleware, function (req, res) {
   const data = req.fields;
-
   if (!data.appointmentDate) {
     console.log(data);
     console.log("Appoitment Date required!");
@@ -210,7 +225,6 @@ router.post("/appointments/book/", formidableMiddleware, function (req, res) {
 });
 
 router.post("/appointments/list", function (req, res) {
-  console.log("/appointmants/list");
   appointmentsService
     .getAppointments()
     .then((data) => {
