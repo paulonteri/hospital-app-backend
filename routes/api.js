@@ -48,17 +48,27 @@ router.post("/doctors/add", formidableMiddleware, function (req, res) {
     });
 });
 
-router.get("/counties/list", function (req, res) {
+router.post("/counties/list", function (req, res) {
   console.log("/api/listcounties");
-  countiesService
-    .getCounties()
-    .then((data) => {
-      res.json(data);
-    })
-    .catch((err) => {
-      console.log(err);
-      res.status(400).send("Bad Request");
-    });
+  var data = req.body;
+  if (data && data.specialization) {
+    console.log(data.specialization);
+    console.log(
+      ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>."
+    );
+
+    countiesService
+      .getCounties()
+      .then((data) => {
+        res.json({ data: data });
+      })
+      .catch((err) => {
+        console.log(err);
+        res.status(400).send("Bad Request");
+      });
+  } else {
+    res.status(400).send({ Error: "Specialization Required" });
+  }
 });
 
 router.get("/hospitals/list", function (req, res) {
