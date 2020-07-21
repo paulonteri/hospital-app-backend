@@ -10,15 +10,22 @@ const hospitalsService = require("../services/hospital");
 const appointmentsService = require("../services/appointment");
 const specializationsService = require("../services/specialization");
 
-router.get("/doctors/list", function (req, res) {
-  console.log("/api/listdoctors");
-  doctorsService
-    .getDoctors()
-    .then((data) => res.json(data))
-    .catch((err) => {
-      console.log(err);
-      res.status(400).send("Bad Request");
-    });
+router.post("/doctors/list", function (req, res) {
+  console.log(">>>>>>>>>> listdoctors");
+  var data = req.body;
+  if (data && data.specialization && data.county) {
+    console.log(data.specialization);
+    console.log(data.county);
+    doctorsService
+      .getDoctors()
+      .then((data) => res.json({ data: data }))
+      .catch((err) => {
+        console.log(err);
+        res.status(400).send("Bad Request");
+      });
+  } else {
+    res.status(400).send({ Error: "Specialization Required" });
+  }
 });
 
 router.post("/doctors/add", formidableMiddleware, function (req, res) {
@@ -49,14 +56,10 @@ router.post("/doctors/add", formidableMiddleware, function (req, res) {
 });
 
 router.post("/counties/list", function (req, res) {
-  console.log("/api/listcounties");
+  console.log(">>>>>>>>>> listcounties");
   var data = req.body;
   if (data && data.specialization) {
     console.log(data.specialization);
-    console.log(
-      ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>."
-    );
-
     countiesService
       .getCounties()
       .then((data) => {
@@ -71,19 +74,26 @@ router.post("/counties/list", function (req, res) {
   }
 });
 
-router.get("/hospitals/list", function (req, res) {
-  console.log("/api/listhospitals/");
-  hospitalsService
-    .getHospitals()
-    .then((data) => res.json(data))
-    .catch((err) => {
-      console.log(err);
-      res.status(400).send("Bad Request");
-    });
+router.post("/hospitals/list", function (req, res) {
+  console.log(">>>>>>>>>> listhospitals/");
+  var data = req.body;
+  if (data && data.specialization && data.county) {
+    console.log(data.specialization);
+    console.log(data.county);
+    hospitalsService
+      .getHospitals()
+      .then((data) => res.json({ data: data }))
+      .catch((err) => {
+        console.log(err);
+        res.status(400).send("Bad Request");
+      });
+  } else {
+    res.status(400).send({ Error: "Specialization Required" });
+  }
 });
 
 router.get("/specializations/list", function (req, res) {
-  console.log("/api/listspecialization/");
+  console.log(">>>>>>>>>> listspecialization/");
   specializationsService
     .getSpecializations()
     .then((data) => res.json(data))
