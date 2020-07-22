@@ -93,9 +93,8 @@ router.post("/hospitals/list", function (req, res) {
 router.post("/specializations/sub/list", function (req, res) {
   var data = req.body;
   if (data && data.specialization) {
-    console.log(data.specialization);
     specializationsService
-      .getSpecializations()
+      .getSpecializations(data.specialization)
       .then((data) => {
         res.json({ data: data });
       })
