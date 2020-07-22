@@ -57,26 +57,35 @@ async function createAppointment(appt) {
 
 // TODO:
 // async function showAppointmemnts(userId){
-async function getAppointments() {
+async function getAppointments(usrId) {
+  console.log(usrId);
   const appointments = await Appointment.findAll({
+    where: {
+      patientId: usrId,
+    },
     raw: true,
   });
+
   const users = await User.findAll({
     raw: true,
     attributes: ["id", "first_name"],
   });
+
   const doctors = await Doctor.findAll({
     raw: true,
     attributes: ["id", "firstName", "lastName"],
   });
+
   const hospitals = await Hospital.findAll({
     raw: true,
     attributes: ["id", "name"],
   });
+
   const counties = await County.findAll({
     raw: true,
     attributes: ["id", "name"],
   });
+
   const specializations = await Specialization.findAll({
     raw: true,
     attributes: ["id", "name"],

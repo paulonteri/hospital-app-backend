@@ -2,6 +2,8 @@ const express = require("express");
 const router = express.Router();
 const formidable = require("express-formidable");
 
+const { User } = require("../models/index");
+
 const formidableMiddleware = formidable({ encoding: "utf-8" });
 
 const doctorsService = require("../services/doctor");
@@ -25,6 +27,19 @@ router.post("/doctors/list", function (req, res) {
     res.status(400).send({ Error: "Specialization & County Required" });
   }
 });
+
+// This should not happen
+// TODO: will fix cookies on android app
+async function getUser(em, pass) {
+  const u = await User.findOne({
+    attributes: ["id"],
+    where: {
+      email: em,
+    },
+    raw: true,
+  });
+  return u.id;
+}
 
 router.post("/doctors/add", formidableMiddleware, function (req, res) {
   const data = req.fields;
@@ -220,10 +235,19 @@ router.post("/appointments/book/", formidableMiddleware, function (req, res) {
 });
 
 router.post("/appointments/list", function (req, res) {
-  appointmentsService
-    .getAppointments()
-    .then((data) => {
-      return res.json(data);
+  var body = req.body;
+
+  getUser(body.email, body.password)
+    .then((usr) => {
+      appointmentsService
+        .getAppointments(usr)
+        .then((data) => {
+          return res.json({ data: data });
+        })
+        .catch((err) => {
+          console.log(err);
+          return res.status(400).send("Bad Request");
+        });
     })
     .catch((err) => {
       console.log(err);
