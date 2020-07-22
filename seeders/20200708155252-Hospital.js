@@ -23,7 +23,7 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        name: "Kenyatta National Hospital",
+        name: "Nakuru County Hospital",
         description: "National hospital",
         addedBy: users[2].id,
         countyId: counties[2].id,
