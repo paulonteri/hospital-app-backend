@@ -7,23 +7,27 @@ module.exports = {
     const hospital = await Hospital.findAll({ raw: true });
     const doctor = await Doctor.findAll({ raw: true });
 
-    return await queryInterface.bulkInsert("DoctorHospitals", [
-      {
-        hospitalId: hospital[0].id,
-        doctorId: doctor[0].id,
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      },
+    var x = 0;
+    var data = [];
+    while (x < 10) {
+      var y = 0;
+      while (y < 3) {
+        data.push({
+          hospitalId: hospital[y].id,
+          doctorId: doctor[x].id,
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        });
+        y += 1;
+      }
+      x += 1;
+    }
 
-      {
-        hospitalId: hospital[1].id,
-        doctorId: doctor[1].id,
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      },
-    ]);
+    return await queryInterface.bulkInsert("DoctorHospitals", data);
   },
   down: (queryInterface, Sequelize) => {
     return queryInterface.bulkDelete("DoctorHospitals", null, {});
   },
 };
+
+//
