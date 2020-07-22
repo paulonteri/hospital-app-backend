@@ -29,8 +29,6 @@ async function getHospitals(specialization, county) {
     raw: true,
   });
 
-  console.log(hospitals);
-
   return hospitals;
 }
 

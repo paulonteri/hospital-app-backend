@@ -1,4 +1,7 @@
-const { Doctor } = require("../models/index");
+const Sequelize = require("sequelize");
+const Op = Sequelize.Op;
+
+const { Doctor, DoctorHospital } = require("../models/index");
 
 async function createDoctor(firstName, lastName) {
   if (!firstName) {
@@ -18,8 +21,24 @@ async function createDoctor(firstName, lastName) {
   return obj;
 }
 
-async function getDoctors() {
-  const doctors = await Doctor.findAll({ raw: true });
+async function getDoctors(specialization, hospital) {
+  //
+  const doctorIds = await DoctorHospital.findAll({
+    attributes: [["doctorId", "id"]],
+    where: {
+      hospitalId: hospital,
+    },
+    raw: true,
+  });
+
+  const doctors = await Doctor.findAll({
+    where: {
+      [Op.or]: doctorIds,
+      specializationId: specialization,
+    },
+    raw: true,
+  });
+
   return doctors;
 }
 

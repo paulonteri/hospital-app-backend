@@ -13,11 +13,9 @@ const specializationGroupsSerice = require("../services/speializationGroup");
 
 router.post("/doctors/list", function (req, res) {
   var data = req.body;
-  if (data && data.specialization && data.county) {
-    console.log(data.specialization);
-    console.log(data.county);
+  if (data && data.specialization && data.hospital) {
     doctorsService
-      .getDoctors()
+      .getDoctors(data.specialization, data.hospital)
       .then((data) => res.json({ data: data }))
       .catch((err) => {
         console.log(err);
