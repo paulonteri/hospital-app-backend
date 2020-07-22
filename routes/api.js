@@ -75,10 +75,8 @@ router.post("/counties/list", function (req, res) {
 router.post("/hospitals/list", function (req, res) {
   var data = req.body;
   if (data && data.specialization && data.county) {
-    console.log(data.specialization);
-    console.log(data.county);
     hospitalsService
-      .getHospitals()
+      .getHospitals(data.specialization, data.county)
       .then((data) => res.json({ data: data }))
       .catch((err) => {
         console.log(err);

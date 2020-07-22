@@ -1,9 +1,10 @@
+const Sequelize = require("sequelize");
+const Op = Sequelize.Op;
+
 const { County, Doctor, Hospital, DoctorHospital } = require("../models/index");
 
-var Sequelize = require("sequelize");
-var Op = Sequelize.Op;
-
 async function getCounties(specialization) {
+  //
   const doctors = await Doctor.findAll({
     attributes: [["id", "doctorId"]],
     where: {
