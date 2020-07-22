@@ -58,7 +58,6 @@ router.post("/doctors/add", formidableMiddleware, function (req, res) {
 router.post("/counties/list", function (req, res) {
   var data = req.body;
   if (data && data.specialization) {
-    console.log(data.specialization);
     countiesService
       .getCounties(data.specialization)
       .then((data) => {
