@@ -9,6 +9,7 @@ const countiesService = require("../services/county");
 const hospitalsService = require("../services/hospital");
 const appointmentsService = require("../services/appointment");
 const specializationsService = require("../services/specialization");
+const specializationGroupsSerice = require("../services/speializationGroup");
 
 router.post("/doctors/list", function (req, res) {
   var data = req.body;
@@ -108,8 +109,8 @@ router.post("/specializations/sub/list", function (req, res) {
 });
 
 router.get("/specializations/groups/list", function (req, res) {
-  specializationsService
-    .getSpecializations()
+  specializationGroupsSerice
+    .getSpecializationGroups()
     .then((data) => {
       res.json(data);
     })
