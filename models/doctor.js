@@ -9,6 +9,14 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      // specializationId
+      this.belongsTo(models.Specialization, {
+        onDelete: "CASCADE",
+        as: "specialization",
+        foreignKey: {
+          allowNull: false,
+        },
+      });
     }
   }
   Doctor.init(
@@ -28,9 +36,6 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
-
-      speciality: DataTypes.STRING,
-      bio: DataTypes.TEXT,
 
       createdAt: {
         allowNull: false,

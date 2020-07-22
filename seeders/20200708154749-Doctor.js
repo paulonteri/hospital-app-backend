@@ -1,49 +1,54 @@
 "use strict";
 const faker = require("faker");
 faker.locale = "de";
+const { Specialization } = require("../models/index");
 
 module.exports = {
-  up: (queryInterface, Sequelize) => {
-    return queryInterface.bulkInsert("Doctors", [
+  up: async (queryInterface, Sequelize) => {
+    const specialization = await Specialization.findAll({
+      raw: true,
+    });
+
+    return await queryInterface.bulkInsert("Doctors", [
       {
         firstName: faker.name.firstName(),
         lastName: faker.name.lastName(),
-        speciality: "Surgery",
+        specializationId: specialization[0].id,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
         firstName: faker.name.firstName(),
         lastName: faker.name.lastName(),
-        speciality: "Oncology",
+        specializationId: specialization[1].id,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
         firstName: faker.name.firstName(),
         lastName: faker.name.lastName(),
-        speciality: "Dermatology",
+        specializationId: specialization[2].id,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
         firstName: faker.name.firstName(),
         lastName: faker.name.lastName(),
-        speciality: "Surgery",
+        specializationId: specialization[0].id,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
         firstName: faker.name.firstName(),
         lastName: faker.name.lastName(),
-        speciality: "Oncology",
+        specializationId: specialization[1].id,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
         firstName: faker.name.firstName(),
         lastName: faker.name.lastName(),
-        speciality: "Dermatology",
+        specializationId: specialization[2].id,
         createdAt: new Date(),
         updatedAt: new Date(),
       },

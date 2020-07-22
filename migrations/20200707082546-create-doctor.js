@@ -12,13 +12,22 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
+
       lastName: {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      speciality: {
-        type: Sequelize.STRING,
+
+      specializationId: {
+        type: Sequelize.DataTypes.INTEGER,
+        references: {
+          model: "Specializations",
+          key: "id",
+        },
+        allowNull: false,
+        onDelete: "cascade",
       },
+
       bio: {
         type: Sequelize.TEXT,
       },

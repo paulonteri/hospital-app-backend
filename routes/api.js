@@ -60,7 +60,7 @@ router.post("/counties/list", function (req, res) {
   if (data && data.specialization) {
     console.log(data.specialization);
     countiesService
-      .getCounties()
+      .getCounties(data.specialization)
       .then((data) => {
         res.json({ data: data });
       })
