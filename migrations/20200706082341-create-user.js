@@ -23,6 +23,22 @@ module.exports = {
         type: Sequelize.STRING,
       },
 
+      national_id: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        validate: {
+          len: [8, 8],
+        },
+      },
+
+      phone: {
+        type: Sequelize.STRING,
+        allowNull: false,
+        validate: {
+          len: [10, 12],
+        },
+      },
+
       password: {
         type: Sequelize.STRING,
         allowNull: false,

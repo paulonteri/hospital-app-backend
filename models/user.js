@@ -16,6 +16,22 @@ module.exports = function (sequelize, Sequelize) {
       notEmpty: true,
     },
 
+    national_id: {
+      type: Sequelize.INTEGER,
+      allowNull: false,
+      validate: {
+        len: [8, 8],
+      },
+    },
+
+    phone: {
+      type: Sequelize.STRING,
+      allowNull: false,
+      validate: {
+        len: [10, 12],
+      },
+    },
+
     email: {
       type: Sequelize.STRING,
       unique: true,
