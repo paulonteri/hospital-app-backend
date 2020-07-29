@@ -35,6 +35,7 @@ async function getDoctors(specialization, hospital) {
     where: {
       [Op.or]: doctorIds,
       specializationId: specialization,
+      available: true,
     },
     raw: true,
   });

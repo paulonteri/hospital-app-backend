@@ -8,6 +8,7 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
+
       firstName: {
         type: Sequelize.STRING,
         allowNull: false,
@@ -15,6 +16,12 @@ module.exports = {
 
       lastName: {
         type: Sequelize.STRING,
+        allowNull: false,
+      },
+
+      available: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: true,
         allowNull: false,
       },
 
