@@ -36,21 +36,32 @@ module.exports = function (passport, auth) {
               });
             } else {
               var userPassword = generateHash(password);
+
               var data = {
                 email: email,
                 password: userPassword,
                 first_name: req.body.firstName,
                 last_name: req.body.lastName,
+                phone: req.body.phone_number.replace(/07/i, "+2547"),
+                national_id: req.body.national_id,
               };
+              console.log(data);
 
-              Auth.create(data).then(function (newUser, created) {
-                if (!newUser) {
-                  return done(null, false);
-                }
-                if (newUser) {
-                  return done(null, newUser);
-                }
-              });
+              Auth.create(data)
+                .then(function (newUser, created) {
+                  if (!newUser) {
+                    return done(null, false);
+                  }
+                  if (newUser) {
+                    return done(null, newUser);
+                  }
+                })
+                .catch(function (err) {
+                  console.log("Error:", err);
+                  return done(null, false, {
+                    message: "Something went wrong with your Sign up",
+                  });
+                });
             }
           })
           .catch(function (err) {

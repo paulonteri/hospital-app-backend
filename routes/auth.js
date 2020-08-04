@@ -16,7 +16,6 @@ module.exports = function (app, passport) {
     "/auth/signup",
     passport.authenticate("local-signup", { failWithError: true }),
     function (req, res, next) {
-      console.log(req.user);
       return res.json({ id: req.user.id });
     },
     function (err, req, res, next) {
