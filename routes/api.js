@@ -255,6 +255,50 @@ router.post("/appointments/list", function (req, res) {
     });
 });
 
+router.post("/appointments/total", function (req, res) {
+  var body = req.body;
+
+  getUser(body.email, body.password)
+    .then((usr) => {
+      appointmentsService
+        .getAppointments(usr)
+        .then((data) => {
+          return res.json({ data: data.length });
+        })
+        .catch((err) => {
+          console.log(err);
+          return res.status(400).send("Bad Request");
+        });
+    })
+    .catch((err) => {
+      console.log(err);
+      return res.status(400).send("Bad Request");
+    });
+});
+
+router.post("/appointments/next", function (req, res) {
+  var body = req.body;
+
+  getUser(body.email, body.password)
+    .then((usr) => {
+      appointmentsService
+        .getAppointments(usr)
+        .then((data) => {
+          return res.json({
+            data: data[data.length - 1].appointment_date.substr(0, 11),
+          });
+        })
+        .catch((err) => {
+          console.log(err);
+          return res.status(400).send("Bad Request");
+        });
+    })
+    .catch((err) => {
+      console.log(err);
+      return res.status(400).send("Bad Request");
+    });
+});
+
 router.post("/data", formidableMiddleware, function (req, res) {
   console.log("Dummy Data API");
   console.log(req.fields);

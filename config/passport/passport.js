@@ -98,7 +98,7 @@ module.exports = function (passport, auth) {
           },
         })
           .then(function (user) {
-            console.log(user);
+            // console.log(user);
             if (!user) {
               return done(null, false, {
                 message: "Email does not exist",

@@ -28,7 +28,8 @@ module.exports = function (app, passport) {
     "/auth/signin",
     passport.authenticate("local-signin", { failWithError: true }),
     function (req, res, next) {
-      console.log(req.user);
+      // console.log(req.user);
+      console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
       return res.json({
         id: req.user.id,
         email: req.user.email,
@@ -37,6 +38,29 @@ module.exports = function (app, passport) {
       });
     },
     function (err, req, res, next) {
+      console.log("<<<<<<<<<<<<<<<<<<<<<<<<<<<");
+      console.log(err);
+      return res.json(err);
+    }
+  );
+
+  // Login
+  app.get(
+    "/auth/signin",
+    passport.authenticate("local-signin", { failWithError: true }),
+    function (req, res, next) {
+      // console.log(req.user);
+      console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+      return res.json({
+        id: req.user.id,
+        email: req.user.email,
+        firstName: req.user.first_name,
+        lastName: req.user.last_name,
+      });
+    },
+    function (err, req, res, next) {
+      console.log("<<<<<<<<<<<<<<<<<<<<<<<<<<<");
+      console.log(err);
       return res.json(err);
     }
   );
