@@ -53,6 +53,10 @@ After installing node, this project will need yarn too, so just run the followin
     $ cd hospital-app-backend
     $ yarn install
 
+## Seed data to db
+
+    $ npx sequelize db:migrate && npx sequelize-cli db:seed:undo:all &&  npx sequelize-cli db:seed:all
+
 ## Running the project
 
     $ yarn start
